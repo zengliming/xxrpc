@@ -18,7 +18,10 @@
 
     <modules>
         <module>rpc-core</module>
+        <module>rpc-client-example</module>
+        <module>rpc-server-example</module>
     </modules>
+
 
     <build>
         <plugins>
