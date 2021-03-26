@@ -5,5 +5,5 @@ package com.cnc.xxrpc.remote.dto;
  * @desc TODO
  * @createDate 2021/3/25 11:25 上午
  */
-public class Response {
+public class RpcResponse {
 }

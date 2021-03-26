@@ -9,5 +9,6 @@ import com.cnc.xxrpc.annotation.RpcStub;
  */
 @RpcStub
 public interface HelloService {
+
     String hello(String name, int age);
 }

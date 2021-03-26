@@ -7,9 +7,8 @@ import com.cnc.xxrpc.remote.transport.ResponseTransporter;
  * @desc TODO
  * @createDate 2021/3/25 11:29 上午
  */
-public class RpcServer implements ResponseTransporter {
-    @Override
-    public void response() {
-
+public class NettyRpcServer {
+    public void server() {
+        
     }
 }
