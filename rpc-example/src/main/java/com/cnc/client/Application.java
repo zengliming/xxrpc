@@ -1,7 +1,6 @@
 package com.cnc.client;
 
 import com.cnc.client.remote.HelloService;
-import com.cnc.xxrpc.governance.RpcServerDiscoverer;
 import com.cnc.xxrpc.remote.transport.netty.NettyRpcClient;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,10 +15,8 @@ public class Application {
 
     public static void main(String[] args) {
         NettyRpcClient client = new NettyRpcClient();
-
-        HelloService helloService = RpcServerDiscoverer.lookup(HelloService.class);
+        HelloService helloService = client.getService(HelloService.class);
         String res = helloService.hello("tony", 25);
         System.out.println(res);
-
     }
 }

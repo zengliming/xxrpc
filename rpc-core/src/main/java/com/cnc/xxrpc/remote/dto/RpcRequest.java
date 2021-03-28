@@ -1,22 +1,29 @@
 package com.cnc.xxrpc.remote.dto;
 
-import java.lang.reflect.Array;
-import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * @author tony
  * @desc TODO
  * @createDate 2021/3/25 11:25 上午
  */
-public class RpcRequest {
+@Getter
+@Setter
+public class RpcRequest implements Serializable {
+    private static final long serialVersionUID = -2524587347775862771L;
 
     // 64位 唯一请求号, 设计为了后续拓展与追踪
     long requestID;
     // 系统版本
     String version;
-    //
+    // 指定接口的实现
     String interfaceName;
+    // 指定实现类, 可选的
     String className;
+    // 指定远程方法名称
     String methodName;
 
     // params: 参数必须有序, 所以用数组

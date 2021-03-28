@@ -1,7 +1,5 @@
 package com.cnc.xxrpc.governance;
 
-import com.cnc.xxrpc.annotation.RpcStub;
-import com.cnc.xxrpc.proxy.lookup.LookupProxy;
 import com.cnc.xxrpc.util.ServerCenter;
 import com.cnc.xxrpc.util.zk.ZkServerCenter;
 import io.netty.channel.Channel;
@@ -54,16 +52,9 @@ public class RpcServerDiscoverer {
 
     public static Channel getServerChannel(Class<?> clz) {
         // TODO: loadBalance
-        return null;
-    }
+        // 第一步, 负载均衡获取服务
+        // 第二步, 获取服务channel, 可能连接到一个 服务器的channel有多个(考虑实现难度)
 
-    public static <T> T lookup(Class<T> clz) {
-        if (!clz.isInterface()) {
-            throw new IllegalArgumentException("clz must be a interface");
-        }
-        if (!clz.isAnnotationPresent(RpcStub.class)) {
-            throw new IllegalArgumentException("remote server must be RpcStub annotation presented");
-        }
-        return LookupProxy.wrapper(clz);
+        return null;
     }
 }
