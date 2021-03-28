@@ -1,5 +1,6 @@
-package com.cnc.xxrpc.remote.dto;
+package com.cnc.xxrpc.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,13 +13,13 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@Builder
 public class RpcRequest implements Serializable {
     private static final long serialVersionUID = -2524587347775862771L;
 
     // 64位 唯一请求号, 设计为了后续拓展与追踪
     long requestID;
-    // 系统版本
-    String version;
+
     // 指定接口的实现
     String interfaceName;
     // 指定实现类, 可选的

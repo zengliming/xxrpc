@@ -5,15 +5,15 @@ package com.cnc.xxrpc.serialize;
  * @desc TODO
  * @createDate 2021/3/25 11:15 上午
  */
-public interface Serializer<E> {
+public interface RpcSerializer {
 
     /**
      * 序列化
      */
-    E serialize(Object from);
+    byte[] serialize(Object from);
 
     /**
      * 反序列化
      */
-    <T> T deserialize(E to, Class<T> clazz);
+    <T> T deserialize(byte[] to, Class<T> clazz);
 }

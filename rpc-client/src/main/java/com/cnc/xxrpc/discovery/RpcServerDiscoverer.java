@@ -1,4 +1,4 @@
-package com.cnc.xxrpc.governance;
+package com.cnc.xxrpc.discovery;
 
 import com.cnc.xxrpc.bean.BeanContext;
 import com.cnc.xxrpc.transport.netty.NettyRpcClient;

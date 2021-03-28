@@ -1,6 +1,6 @@
-package com.cnc.xxrpc.remote.transport.netty;
+package com.cnc.xxrpc.transport.netty;
 
-import com.cnc.xxrpc.remote.transport.ResponseTransporter;
+import com.cnc.xxrpc.transport.ResponseTransporter;
 
 /**
  * @author tony

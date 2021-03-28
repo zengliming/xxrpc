@@ -1,4 +1,4 @@
-package com.cnc.xxrpc.remote.transport;
+package com.cnc.xxrpc.transport;
 
 /**
  * @author tony

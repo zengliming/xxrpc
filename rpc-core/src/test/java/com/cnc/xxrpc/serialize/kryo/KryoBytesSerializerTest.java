@@ -1,7 +1,7 @@
 package com.cnc.xxrpc.serialize.kryo;
 
 import com.cnc.xxrpc.serialize.TestSerializeObject;
-import com.cnc.xxrpc.serialize.Serializer;
+import com.cnc.xxrpc.serialize.RpcSerializer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class KryoBytesSerializerTest {
 
 
-    private static Serializer<byte[]> serializer;
+    private static RpcSerializer<byte[]> serializer;
 
     @BeforeEach
     public void tearUp() {

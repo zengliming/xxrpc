@@ -1,4 +1,4 @@
-package com.cnc.xxrpc.governance;
+package com.cnc.xxrpc.registry;
 
 /**
  * @author tony

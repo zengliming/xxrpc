@@ -1,7 +1,9 @@
-package com.cnc.xxrpc.remote.dto;
+package com.cnc.xxrpc.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * @author tony
@@ -10,6 +12,11 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RpcResponse {
+public class RpcResponse implements Serializable {
+    private static final long serialVersionUID = -2524587347775862771L;
+
+    // 64位 唯一请求号, 设计为了后续拓展与追踪
+    long requestID;
+
     private Object data;
 }

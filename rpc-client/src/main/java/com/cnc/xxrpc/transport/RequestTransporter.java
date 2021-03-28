@@ -1,10 +1,7 @@
-package com.cnc.xxrpc.remote.transport;
+package com.cnc.xxrpc.transport;
 
-import com.cnc.xxrpc.remote.dto.RpcFuture;
-import com.cnc.xxrpc.remote.dto.RpcRequest;
-import com.cnc.xxrpc.remote.dto.RpcResponse;
-
-import java.util.concurrent.CompletableFuture;
+import com.cnc.xxrpc.dto.RpcFuture;
+import com.cnc.xxrpc.dto.RpcRequest;
 
 /**
  * @author tony

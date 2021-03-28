@@ -11,5 +11,17 @@
 
     <artifactId>rpc-x-example</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.cnc</groupId>
+            <artifactId>rpc-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cnc</groupId>
+            <artifactId>rpc-server</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -1,6 +1,6 @@
-package com.cnc.xxrpc.l.impl;
+package com.cnc.xxrpc.lb.impl;
 
-import com.cnc.xxrpc.lb.LoadBalance;
+import com.cnc.xxrpc.lb.RpcLoadBalance;
 
 import java.util.Set;
 
@@ -9,7 +9,7 @@ import java.util.Set;
  * @desc TODO
  * @createDate 2021/3/28 2:08 下午
  */
-public class RandomRpcLoadBalance implements LoadBalance {
+public class RandomRpcLoadBalance implements RpcLoadBalance {
 
     @Override
     public <T> T choose(Set<T> ts) throws Exception {

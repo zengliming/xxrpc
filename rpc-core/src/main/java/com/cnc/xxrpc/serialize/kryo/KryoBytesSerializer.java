@@ -2,8 +2,8 @@ package com.cnc.xxrpc.serialize.kryo;
 
 import com.cnc.xxrpc.exception.DeserializerException;
 import com.cnc.xxrpc.exception.SerializerException;
-import com.cnc.xxrpc.remote.dto.RpcRequest;
-import com.cnc.xxrpc.remote.dto.RpcResponse;
+import com.cnc.xxrpc.dto.RpcRequest;
+import com.cnc.xxrpc.dto.RpcResponse;
 import com.cnc.xxrpc.serialize.AbstractBytesSerializer;
 import com.cnc.xxrpc.serialize.TestSerializeObject;
 import com.esotericsoftware.kryo.Kryo;

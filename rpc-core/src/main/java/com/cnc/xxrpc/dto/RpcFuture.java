@@ -1,6 +1,8 @@
-package com.cnc.xxrpc.remote.dto;
+package com.cnc.xxrpc.dto;
 
 import com.cnc.xxrpc.dto.RpcResponse;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -9,27 +11,21 @@ import java.util.concurrent.CompletableFuture;
  * @desc TODO
  * @createDate 2021/3/28 2:53 下午
  */
+@Getter
+@Setter
 public class RpcFuture {
-    private CompletableFuture<RpcResponse> completableFuture;
-    private boolean isActive;
+    private final CompletableFuture<RpcResponse> completableFuture;
+    private boolean isActive = true;
     private Exception exc = null;
+
+    public RpcFuture(CompletableFuture<RpcResponse> completableFuture) {
+        this.completableFuture = completableFuture;
+    }
 
     public RpcResponse get() throws Exception {
         if (exc != null) {
             throw exc;
         }
         return completableFuture.get();
-    }
-
-    public void setCompletableFuture(CompletableFuture<RpcResponse> completableFuture) {
-        this.completableFuture = completableFuture;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public void setExc(Exception exc) {
-        this.exc = exc;
     }
 }

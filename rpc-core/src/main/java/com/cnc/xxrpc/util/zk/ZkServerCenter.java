@@ -1,8 +1,8 @@
 package com.cnc.xxrpc.util.zk;
 
 import com.cnc.xxrpc.util.ServerCenter;
+import io.netty.channel.Channel;
 
-import java.nio.channels.Channel;
 import java.util.Set;
 
 /**
