@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class KryoBytesSerializerTest {
 
 
-    private static RpcSerializer<byte[]> serializer;
+    private static RpcSerializer serializer;
 
     @BeforeEach
     public void tearUp() {

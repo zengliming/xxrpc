@@ -35,5 +35,4 @@ public class NettyResponseHandler extends SimpleChannelInboundHandler<RpcRespons
         super.userEventTriggered(ctx, evt);
     }
 
-
 }

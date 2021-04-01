@@ -3,6 +3,9 @@ package com.cnc.xxrpc.bean;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -48,11 +51,19 @@ public class BeanContext {
                 instance = holder.get(holderKey);
                 if (null == instance) {
                     // TODO: 完成 clz 的安全实例化
+//                    Constructor<T> constructor;
+//                    try {
+//                        constructor = clz.getDeclaredConstructor();
+//                    } catch (NoSuchMethodException e) {
+//                        log.error("Class {} don't has a default constructor", clz.getName());
+//                        return null;
+//                    }
+//                    constructor.setAccessible(true);
                     try {
                         instance = clz.newInstance();
                         holder.set(instance);
-                    } catch (InstantiationException | IllegalAccessException e) {
-                        log.error(e.getMessage());
+                    } catch (InstantiationException | IllegalAccessException  e) {
+                        e.printStackTrace();
                     }
                 }
             }

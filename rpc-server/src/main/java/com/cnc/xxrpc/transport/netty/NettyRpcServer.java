@@ -1,6 +1,5 @@
 package com.cnc.xxrpc.transport.netty;
 
-import com.cnc.xxrpc.transport.ResponseTransporter;
 
 /**
  * @author tony

@@ -55,6 +55,8 @@ public class RpcServerDiscoverer {
     public static Channel getServerChannel(Class<?> clz) throws Exception {
         // 第一步, 负载均衡获取服务
         // 第二步, 获取服务channel, 可能连接到一个 服务器的channel有多个(考虑实现难度)
-        return BeanContext.getBean(NettyRpcClient.class).getRpcLoadBalance().choose(SERVER_CHANNEL_MAP.get(getServerAddress(clz)));
+        NettyRpcClient client = BeanContext.getBean(NettyRpcClient.class);
+        return client.getBootstrap().connect("127.0.0.1",8099).channel();
+//        return BeanContext.getBean(NettyRpcClient.class).getRpcLoadBalance();
     }
 }

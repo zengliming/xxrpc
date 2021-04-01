@@ -16,7 +16,7 @@ import java.io.IOException;
 
 /**
  * @author tony
- * @desc TODO
+ * @desc 序列化, 线程不安全, 每次需要的时候新建
  * @createDate 2021/3/25 1:59 下午
  */
 public class KryoBytesSerializer extends AbstractBytesSerializer {
@@ -26,6 +26,9 @@ public class KryoBytesSerializer extends AbstractBytesSerializer {
         Kryo kryo = new Kryo();
         kryo.register(RpcRequest.class);
         kryo.register(RpcResponse.class);
+        kryo.register(Class[].class);
+        kryo.register(Object[].class);
+        kryo.register(Class.class);
         // just for test
         kryo.register(TestSerializeObject.class);
         return kryo;

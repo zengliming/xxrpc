@@ -30,4 +30,6 @@ public class RpcRequest implements Serializable {
     // params: 参数必须有序, 所以用数组
     Object[] params;
     Class<?>[] paramTypes;
+    
+
 }

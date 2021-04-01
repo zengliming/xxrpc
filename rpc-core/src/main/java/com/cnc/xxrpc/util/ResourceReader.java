@@ -20,7 +20,7 @@ public class ResourceReader {
             Properties p = new Properties();
             p.load(in);
             return p;
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new IOException("failed to read resource from file: " + name);
         }
     }
