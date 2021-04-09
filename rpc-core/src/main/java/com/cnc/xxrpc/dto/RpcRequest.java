@@ -1,8 +1,8 @@
 package com.cnc.xxrpc.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 
@@ -13,10 +13,9 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@Builder
+@Slf4j
 public class RpcRequest implements Serializable {
     private static final long serialVersionUID = -2524587347775862771L;
-
     // 64位 唯一请求号, 设计为了后续拓展与追踪
     long requestID;
 
@@ -30,6 +29,5 @@ public class RpcRequest implements Serializable {
     // params: 参数必须有序, 所以用数组
     Object[] params;
     Class<?>[] paramTypes;
-    
 
 }

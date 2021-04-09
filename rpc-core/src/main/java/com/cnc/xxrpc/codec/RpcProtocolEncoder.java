@@ -4,14 +4,12 @@ import com.cnc.xxrpc.bean.BeanContext;
 import com.cnc.xxrpc.compress.RpcCompressor;
 import com.cnc.xxrpc.compress.impl.GzipCompressor;
 import com.cnc.xxrpc.constant.StandardHeader;
-import com.cnc.xxrpc.dto.RpcRequest;
 import com.cnc.xxrpc.serialize.RpcSerializer;
 import com.cnc.xxrpc.serialize.kryo.KryoBytesSerializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelOutboundHandlerAdapter;
-import io.netty.channel.ChannelPromise;
+import io.netty.handler.codec.MessageToByteEncoder;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -21,26 +19,19 @@ import lombok.extern.slf4j.Slf4j;
  * @createDate 2021/3/29 8:15 下午
  */
 @Slf4j
-public class RpcProtocolEncoder extends ChannelOutboundHandlerAdapter {
+public class RpcProtocolEncoder extends MessageToByteEncoder<Object> {
+
     @Override
-    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-        log.info("rpc encoder called...........");
-        final RpcRequest requestBody;
-        try {
-            requestBody = (RpcRequest) msg;
-        } catch (ClassCastException e) {
-            log.error("无法将一个" + msg.getClass().getName() + "转换成一个" + RpcRequest.class.getName());
-            return;
-        }
+    protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
 
         RpcSerializer serializer = new KryoBytesSerializer();
         RpcCompressor compressor = BeanContext.getBean(GzipCompressor.class);
         // 对payload 进行序列化和压缩编码
         byte[] body = new byte[]{};
         try {
-            byte[] s = serializer.serialize(requestBody);
+            byte[] s = serializer.serialize(msg);
             body = compressor.compress(s);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
         ByteBuf sendBuf = Unpooled.buffer();

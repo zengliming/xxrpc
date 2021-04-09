@@ -1,5 +1,8 @@
 package com.cnc.xxrpc.serialize;
 
+import com.cnc.xxrpc.exception.DeserializerException;
+import com.cnc.xxrpc.exception.SerializerException;
+
 /**
  * @author tony
  * @desc TODO
@@ -10,10 +13,10 @@ public interface RpcSerializer {
     /**
      * 序列化
      */
-    byte[] serialize(Object from);
+    byte[] serialize(Object from) throws SerializerException;
 
     /**
      * 反序列化
      */
-    <T> T deserialize(byte[] to, Class<T> clazz);
+    <T> T deserialize(byte[] to, Class<T> clazz) throws DeserializerException;
 }
