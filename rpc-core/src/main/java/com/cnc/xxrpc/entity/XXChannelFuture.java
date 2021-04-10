@@ -1,6 +1,6 @@
-package com.cnc.xxrpc.dto;
+package com.cnc.xxrpc.entity;
 
-import com.cnc.xxrpc.dto.RpcResponse;
+import com.cnc.xxrpc.dto.XXResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,16 +13,16 @@ import java.util.concurrent.CompletableFuture;
  */
 @Getter
 @Setter
-public class RpcFuture {
-    private final CompletableFuture<RpcResponse> completableFuture;
+public class XXChannelFuture {
+    private final CompletableFuture<XXResponse> completableFuture;
     private boolean isActive = true;
     private Exception exc = null;
 
-    public RpcFuture(CompletableFuture<RpcResponse> completableFuture) {
+    public XXChannelFuture(CompletableFuture<XXResponse> completableFuture) {
         this.completableFuture = completableFuture;
     }
 
-    public RpcResponse get() throws Exception {
+    public XXResponse get() throws Exception {
         if (exc != null) {
             throw exc;
         }

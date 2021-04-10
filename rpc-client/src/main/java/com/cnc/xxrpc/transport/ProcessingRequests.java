@@ -1,10 +1,9 @@
 package com.cnc.xxrpc.transport;
 
 
-import com.cnc.xxrpc.dto.RpcFuture;
-import com.cnc.xxrpc.dto.RpcResponse;
+import com.cnc.xxrpc.entity.XXChannelFuture;
+import com.cnc.xxrpc.dto.XXResponse;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -13,14 +12,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @createDate 2021/3/28 2:59 下午
  */
 public class ProcessingRequests {
-    private static final ConcurrentHashMap<Long, RpcFuture> processingRpcFuture = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Long, XXChannelFuture> processingRpcFuture = new ConcurrentHashMap<>();
 
-    public static void put(Long requestId, RpcFuture future) {
+    public static void put(Long requestId, XXChannelFuture future) {
         processingRpcFuture.put(requestId, future);
     }
 
-    public static void finish(RpcResponse rpcResponse) {
-        RpcFuture rpcFuture = processingRpcFuture.remove(rpcResponse.getRequestID());
+    public static void finish(XXResponse rpcResponse) {
+        XXChannelFuture rpcFuture = processingRpcFuture.remove(rpcResponse.getRequestID());
         if (null != rpcFuture) {
             // 完成响应工作
             rpcFuture.getCompletableFuture().complete(rpcResponse);

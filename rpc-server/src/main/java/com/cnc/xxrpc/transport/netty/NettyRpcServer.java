@@ -8,6 +8,5 @@ package com.cnc.xxrpc.transport.netty;
  */
 public class NettyRpcServer {
     public void server() {
-        
     }
 }

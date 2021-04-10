@@ -1,6 +1,6 @@
 package com.cnc.xxrpc.codec;
 
-import com.cnc.xxrpc.bean.BeanContext;
+import com.cnc.xxrpc.util.BeanContext;
 import com.cnc.xxrpc.compress.RpcCompressor;
 import com.cnc.xxrpc.compress.impl.GzipCompressor;
 import com.cnc.xxrpc.serialize.RpcSerializer;
@@ -30,13 +30,15 @@ public class RpcProtocolDecoder extends LengthFieldBasedFrameDecoder {
     private static final int MAX_FRAME_LENGTH = 1024 * 2;
     private static final int LENGTH_FIELD_OFFSET = 4;
     private static final int LENGTH_FIELD_LENGTH = 4;
+    private final Class<?> deserializeClz;
 
-    public RpcProtocolDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength) {
+    public RpcProtocolDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, Class<?> clz) {
         super(maxFrameLength, lengthFieldOffset, lengthFieldLength);
+        deserializeClz = clz;
     }
 
-    public static RpcProtocolDecoder newInstance() {
-        return new RpcProtocolDecoder(MAX_FRAME_LENGTH, LENGTH_FIELD_OFFSET, LENGTH_FIELD_LENGTH);
+    public static RpcProtocolDecoder newInstance(Class<?> clz) {
+        return new RpcProtocolDecoder(MAX_FRAME_LENGTH, LENGTH_FIELD_OFFSET, LENGTH_FIELD_LENGTH, clz);
     }
 
     // 通过协议解析
@@ -61,17 +63,15 @@ public class RpcProtocolDecoder extends LengthFieldBasedFrameDecoder {
             log.info("数据包的总长为: {}", length);
             body = new byte[in.readableBytes()];
             in.readBytes(body);
-            log.info("收到的消息为: {}", new String(body));
 
             RpcSerializer serializer = new KryoBytesSerializer();
             RpcCompressor compressor = BeanContext.getBean(GzipCompressor.class);
 
             // 进行多态分解
-            Object bodyInstance = serializer.deserialize(compressor.decompress(body), Object.class);
+            Object bodyInstance = serializer.deserialize(compressor.decompress(body), deserializeClz);
+            System.out.println(bodyInstance);
             log.info("解析对象成功");
             ctx.fireChannelRead(bodyInstance);
-
         }
-
     }
 }

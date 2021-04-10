@@ -2,8 +2,8 @@ package com.cnc.xxrpc.serialize.kryo;
 
 import com.cnc.xxrpc.exception.DeserializerException;
 import com.cnc.xxrpc.exception.SerializerException;
-import com.cnc.xxrpc.dto.RpcRequest;
-import com.cnc.xxrpc.dto.RpcResponse;
+import com.cnc.xxrpc.dto.XXRequest;
+import com.cnc.xxrpc.dto.XXResponse;
 import com.cnc.xxrpc.serialize.AbstractBytesSerializer;
 import com.cnc.xxrpc.serialize.TestSerializeObject;
 import com.esotericsoftware.kryo.Kryo;
@@ -24,11 +24,12 @@ public class KryoBytesSerializer extends AbstractBytesSerializer {
     // 确保不被多个线程获取到即可 TODO: 测试同一个线程内
     static final ThreadLocal<Kryo> threadLocalKryo = ThreadLocal.withInitial(() -> {
         Kryo kryo = new Kryo();
-        kryo.register(RpcRequest.class);
-        kryo.register(RpcResponse.class);
+        kryo.register(XXRequest.class);
+        kryo.register(XXResponse.class);
         kryo.register(Class[].class);
         kryo.register(Object[].class);
         kryo.register(Class.class);
+        kryo.register(Object.class);
         // just for test
         kryo.register(TestSerializeObject.class);
         return kryo;

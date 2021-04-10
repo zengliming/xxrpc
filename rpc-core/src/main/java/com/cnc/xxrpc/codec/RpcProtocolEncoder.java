@@ -1,6 +1,6 @@
 package com.cnc.xxrpc.codec;
 
-import com.cnc.xxrpc.bean.BeanContext;
+import com.cnc.xxrpc.util.BeanContext;
 import com.cnc.xxrpc.compress.RpcCompressor;
 import com.cnc.xxrpc.compress.impl.GzipCompressor;
 import com.cnc.xxrpc.constant.StandardHeader;
@@ -24,6 +24,7 @@ public class RpcProtocolEncoder extends MessageToByteEncoder<Object> {
     @Override
     protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
 
+        log.info("开始编码");
         RpcSerializer serializer = new KryoBytesSerializer();
         RpcCompressor compressor = BeanContext.getBean(GzipCompressor.class);
         // 对payload 进行序列化和压缩编码
@@ -43,6 +44,7 @@ public class RpcProtocolEncoder extends MessageToByteEncoder<Object> {
         sendBuf.writeInt(StandardHeader.getHeaderLength() + body.length);
         //写入消息体
         sendBuf.writeBytes(body);
+        log.info("开始发送小时到远程");
         // 发送消息到远程
         ctx.writeAndFlush(sendBuf);
     }

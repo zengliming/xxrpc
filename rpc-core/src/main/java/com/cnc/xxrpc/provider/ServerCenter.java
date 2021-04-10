@@ -1,5 +1,6 @@
-package com.cnc.xxrpc.util;
+package com.cnc.xxrpc.provider;
 
+import com.cnc.xxrpc.entity.XXServiceProperties;
 import io.netty.channel.Channel;
 
 import java.util.Set;
@@ -11,7 +12,5 @@ import java.util.Set;
  */
 public interface ServerCenter {
 
-    Set<String> getAvailableServerAddresses(Class<?> clz);
-
-    Set<Channel> getAvailableServers(Class<?> clz);
+    Set<String> getAvailableServerAddresses(XXServiceProperties properties);
 }

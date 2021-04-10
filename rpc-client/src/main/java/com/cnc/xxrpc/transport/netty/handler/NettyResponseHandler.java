@@ -1,6 +1,6 @@
 package com.cnc.xxrpc.transport.netty.handler;
 
-import com.cnc.xxrpc.dto.RpcResponse;
+import com.cnc.xxrpc.dto.XXResponse;
 import com.cnc.xxrpc.transport.ProcessingRequests;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -13,13 +13,14 @@ import lombok.extern.slf4j.Slf4j;
  * @createDate 2021/3/28 3:58 下午
  */
 @Slf4j
-public class NettyResponseHandler extends SimpleChannelInboundHandler<RpcResponse> {
+public class NettyResponseHandler extends SimpleChannelInboundHandler<XXResponse> {
 
     //消息可读处理
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, RpcResponse msg) throws Exception {
+    public void channelRead0(ChannelHandlerContext ctx, XXResponse msg) throws Exception {
         // 往future 中写东西
         try {
+            log.info("客户端开始处理返回结果...");
             ProcessingRequests.finish(msg);
         } catch (Exception e) {
             // TODO: 考虑是否可以在这里加入降级操作

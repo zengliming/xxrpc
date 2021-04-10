@@ -29,8 +29,9 @@ class KryoBytesSerializerTest {
     public void testDeserialize() {
         TestSerializeObject d = new TestSerializeObject();
         byte[] bs = serializer.serialize(d);
-        TestSerializeObject demo = serializer.deserialize(bs, TestSerializeObject.class);
-        System.out.println(demo);
+        Object demo = serializer.deserialize(bs, Object.class);
+        TestSerializeObject e = (TestSerializeObject) demo;
+        System.out.println(e);
 
     }
 

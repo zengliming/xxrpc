@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Slf4j
-public class RpcRequest implements Serializable {
+public class XXRequest implements Serializable {
     private static final long serialVersionUID = -2524587347775862771L;
     // 64位 唯一请求号, 设计为了后续拓展与追踪
     long requestID;

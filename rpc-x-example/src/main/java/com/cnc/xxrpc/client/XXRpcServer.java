@@ -1,7 +1,9 @@
 package com.cnc.xxrpc.client;
 
 import com.cnc.xxrpc.codec.RpcProtocolDecoder;
-import com.cnc.xxrpc.dto.RpcResponse;
+import com.cnc.xxrpc.codec.RpcProtocolEncoder;
+import com.cnc.xxrpc.dto.XXRequest;
+import com.cnc.xxrpc.transport.netty.handler.ServerRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -31,7 +33,9 @@ public class XXRpcServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast("decoder", RpcProtocolDecoder.newInstance());
+                            pipeline.addFirst("encoder",new RpcProtocolEncoder());
+                            pipeline.addLast("decoder", RpcProtocolDecoder.newInstance(XXRequest.class));
+                            pipeline.addLast("handler", new ServerRequestHandler());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)
@@ -52,6 +56,8 @@ public class XXRpcServer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
     }
 
 }

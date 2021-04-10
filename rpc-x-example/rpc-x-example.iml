@@ -13,6 +13,12 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="rpc-client" />
     <orderEntry type="module" module-name="rpc-core" />
+    <orderEntry type="library" name="Maven: org.apache.curator:curator-framework:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.curator:curator-client:2.13.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.zookeeper:zookeeper:3.4.8" level="project" />
+    <orderEntry type="library" name="Maven: jline:jline:0.9.94" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty:3.7.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:16.0.1" level="project" />
     <orderEntry type="module" module-name="rpc-server" />
     <orderEntry type="library" name="Maven: io.netty:netty-all:4.1.53.Final" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.55.Final" level="project" />

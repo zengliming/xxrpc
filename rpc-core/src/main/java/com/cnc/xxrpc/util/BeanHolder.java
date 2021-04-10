@@ -1,4 +1,4 @@
-package com.cnc.xxrpc.bean;
+package com.cnc.xxrpc.util;
 
 /**
  * @author tony

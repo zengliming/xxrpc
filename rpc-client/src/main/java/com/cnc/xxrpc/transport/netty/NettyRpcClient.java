@@ -1,12 +1,14 @@
 package com.cnc.xxrpc.transport.netty;
 
-import com.cnc.xxrpc.bean.BeanContext;
+import com.cnc.xxrpc.util.BeanContext;
+import com.cnc.xxrpc.codec.RpcProtocolDecoder;
 import com.cnc.xxrpc.codec.RpcProtocolEncoder;
-import com.cnc.xxrpc.discovery.RpcServerDiscoverer;
+import com.cnc.xxrpc.dto.XXResponse;
 import com.cnc.xxrpc.lb.impl.RandomRpcLoadBalance;
 import com.cnc.xxrpc.lb.RpcLoadBalance;
 import com.cnc.xxrpc.proxy.LookupProxy;
 import com.cnc.xxrpc.transport.netty.handler.NettyRequestHandler;
+import com.cnc.xxrpc.transport.netty.handler.NettyResponseHandler;
 import com.cnc.xxrpc.util.ResourceReader;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -48,11 +50,11 @@ public class NettyRpcClient {
 
 
     public NettyRpcClient() {
-        loadProperties();
+
         // register center
-        String zkAddress = properties.getProperty("zookeeper.address");
-        int zkPort = Integer.parseInt(properties.getProperty("zookeeper.port"));
-        RpcServerDiscoverer.setup(zkAddress, zkPort);
+//        String zkAddress = properties.getProperty("zookeeper.address");
+//        int zkPort = Integer.parseInt(properties.getProperty("zookeeper.port"));
+//        RpcServerDiscoverer.setup(zkAddress, zkPort);
 
 
         EventLoopGroup group = new NioEventLoopGroup();
@@ -69,8 +71,9 @@ public class NettyRpcClient {
                         pipeline.addFirst("protocol encoder", new RpcProtocolEncoder()); // out -2
 
                         // 添加入站处理, 与出站处理相反
-//                        pipeline.addLast(new NettyResponseHandler());
-//                        pipeline.addLast(RpcProtocolDecoder.newInstance());
+                        pipeline.addLast(RpcProtocolDecoder.newInstance(XXResponse.class));
+                        pipeline.addLast(new NettyResponseHandler());
+
                     }
                 }); //TODO: complete the handler
     }
@@ -88,13 +91,6 @@ public class NettyRpcClient {
     }
 
 
-    private void loadProperties() {
-        try {
-            properties = ResourceReader.getResource("xxrpc.properties");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public RpcLoadBalance getRpcLoadBalance() {
         return rpcLoadBalance;

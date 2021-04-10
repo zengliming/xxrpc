@@ -1,8 +1,8 @@
 package com.cnc.xxrpc.proxy;
 
 
-import com.cnc.xxrpc.dto.RpcFuture;
-import com.cnc.xxrpc.dto.RpcRequest;
+import com.cnc.xxrpc.entity.XXChannelFuture;
+import com.cnc.xxrpc.dto.XXRequest;
 import com.cnc.xxrpc.transport.ProcessingRequests;
 import com.cnc.xxrpc.transport.netty.NettyRpcClient;
 import io.netty.bootstrap.Bootstrap;
@@ -32,7 +32,7 @@ public class LookupProxy implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         // TODO: 完成基础信息注入
-        RpcRequest rpcRequest = new RpcRequest();
+        XXRequest rpcRequest = new XXRequest();
         rpcRequest.setRequestID(123123123L);
         rpcRequest.setClassName("");
         rpcRequest.setInterfaceName(method.getDeclaringClass().getSimpleName());
@@ -41,18 +41,15 @@ public class LookupProxy implements InvocationHandler {
         rpcRequest.setParamTypes(method.getParameterTypes());
 
         // 此处可以加入拦截器等
-//        Channel channel = RpcServerDiscoverer.getServerChannel(clz); // TODO: 处理异常
         Bootstrap bs = client.getBootstrap();
         Channel channel = bs.connect("127.0.0.1", 8099).sync().channel();
 
         //考虑是否需要传递 clientCtx
-        //channel.attr(AttributeKey.valueOf(NettyRpcClient.CLIENT_CTX)).set(client);
-        RpcFuture rpcFuture = new RpcFuture(new CompletableFuture<>());
+        XXChannelFuture rpcFuture = new XXChannelFuture(new CompletableFuture<>());
 
         // 这里同步阻塞
         if (channel.isActive()) {
             ProcessingRequests.put(rpcRequest.getRequestID(), rpcFuture);
-
             channel.writeAndFlush(rpcRequest)
                     .addListener((ChannelFutureListener) future -> {
                         log.info("write event completed");
@@ -69,6 +66,6 @@ public class LookupProxy implements InvocationHandler {
             return new IllegalStateException();
         }
         // 这里需要等待服务端消息回复后, 客户端手动写入
-        return rpcFuture.get();
+        return rpcFuture.get().getData();
     }
 }
